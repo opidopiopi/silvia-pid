@@ -2,7 +2,7 @@
 #include <shared.h>
 
 #define HEATER_INTERVAL 1000
-#define HEAT_RELAY_PIN  19
+#define HEAT_RELAY_PIN  D5
 
 float heatcycles;
 bool heaterState = 0;

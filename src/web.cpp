@@ -1,16 +1,12 @@
-#include<cstdlib>
-#include <WiFi.h>
-#include <WiFiManager.h>
-#include <AsyncTCP.h>
+#include <cstdlib>
 #include <ESPAsyncWebServer.h>
-#include "SPIFFS.h"
+#include <FS.h>
 #include <sensor.h>
 #include <heater.h>
 #include <shared.h>
 #include <config.h>
 #include <ArduinoJson.h>
 
-WiFiManager wifiManager;
 AsyncWebServer server(80);
 
 const int MAX_CONNECTION_RETRIES = 20;
@@ -25,7 +21,7 @@ void notFound(AsyncWebServerRequest *request) {
 
 void handleStatus(AsyncWebServerRequest *request) {
     String message = "{\"temperature\": ";
-    message += currentTemp;
+    message += currentTempBoiler;
     message += ", \"targetTemperature\": ";
     message += gTargetTemp;
     message += ", \"boilerStatus\": ";
@@ -117,14 +113,6 @@ void handleGetConfig(AsyncWebServerRequest *request){
 }
 
 void setupWeb() {
-
-    wifiManager.setConnectRetries(10);
-    wifiManager.autoConnect("Silvia-AP");
-
-    Serial.print("IP Address: ");
-    Serial.println(WiFi.localIP());
-    SPIFFS.begin();
-
     server.on("/status", HTTP_GET, handleStatus);
     server.on("/config", HTTP_GET, handleGetConfig);
     server.on("/config", HTTP_POST, handleUpdateConfig);

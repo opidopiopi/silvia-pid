@@ -1,3 +1,6 @@
 void setupSensor();
-double getCurrentTemperature();
-extern double currentTemp;
+
+extern double currentTempBoiler;
+
+double getBoilerTemperature();
+double getBrewHeadTemperature();

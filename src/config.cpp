@@ -1,7 +1,6 @@
 #include <ArduinoJson.h>
 #include <shared.h>
 #include "FS.h"
-#include "SPIFFS.h"
 
 bool prepareFS() {
   if (!SPIFFS.begin()) {
